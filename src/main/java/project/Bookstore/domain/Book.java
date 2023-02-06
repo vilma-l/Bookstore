@@ -1,10 +1,21 @@
 package project.Bookstore.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Book {
 	
 	//attribuutit
+	@Id //pääavainsarake
+	@GeneratedValue(strategy = GenerationType.AUTO) //automaattisesti generoituva id-arvo
+	private Long id;
 	private String title;
 	private String author;
+	@Column(name = "publishing_year")
 	private int year;
 	private String isbn;
 	private double price;
@@ -12,6 +23,7 @@ public class Book {
 	//konstruktorit
 	public Book() {
 		super();
+		this.id = null;
 		this.title = null;
 		this.author = null;
 		this.year = 0;
@@ -21,6 +33,17 @@ public class Book {
 	
 	public Book(String title, String author, int year, String isbn, double price) {
 		super();
+		this.id = null;
+		this.title = title;
+		this.author = author;
+		this.year = year;
+		this.isbn = isbn;
+		this.price = price;
+	}
+	
+	public Book(Long id, String title, String author, int year, String isbn, double price) {
+		super();
+		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.year = year;
@@ -29,6 +52,14 @@ public class Book {
 	}
 	
 	//getterit & setterit
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -72,6 +103,6 @@ public class Book {
 	//toString
 	@Override
 	public String toString() {
-		return "title= " + title + ", author= " + author + ", year= " + year + ", isbn= " + isbn + ", price= " + price;
+		return "id= " + id + ", title= " + title + ", author= " + author + ", year= " + year + ", isbn= " + isbn + ", price= " + price;
 	}
 }
