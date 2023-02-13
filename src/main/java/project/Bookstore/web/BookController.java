@@ -67,15 +67,15 @@ public class BookController {
 	// kirjan muokkaus
 	
 	@RequestMapping(value = "/editbook/{id}", method = RequestMethod.GET)
-	public String getEditBookForm(@PathVariable("id") Long id, @ModelAttribute Book book, Model model) {
-		bookRepository.findById(id);
-		model.addAttribute("book", book);
+	public String editBook(@PathVariable("id") Long id, Model model) {
+		Book bookToEdit = bookRepository.findById(id).get();
+		model.addAttribute("book", bookToEdit);
 		
 		return "editbook";
 	}
 	
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-	public String editBook(@ModelAttribute Book book) {
+	public String updateBook(@ModelAttribute Book book) {
 		bookRepository.save(book);
 		
 		return "redirect:/booklist";

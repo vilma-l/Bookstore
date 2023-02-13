@@ -9,11 +9,11 @@
 	
 	<form method="post" action="#" th:action="@{/update/{id}(id=${book.id})}" th:object=${book}>
 		<input type="hidden" value="${book.id}" />
-		<p>Title: <input type="text" th:field="${book.title}" th:placeholder="${book.title}" /></p>
-		<p>Author: <input type="text" th:field="${book.author}" /></p>
-		<p>Year: <input type="number" th:field="${book.year}" /></p>
-		<p>ISBN: <input type="text" th:field="${book.isbn}" /></p>
-		<p>Price: <input type="text" th:field="${book.price}" /></p>
+		<p>Title: <input type="text" th:field="${book.title}" th:value="${book.title}" /></p>
+		<p>Author: <input type="text" th:field="${book.author}" th:value="${book.author}" /></p>
+		<p>Year: <input type="number" th:field="${book.year}" th:value="${book.year}" /></p>
+		<p>ISBN: <input type="text" th:field="${book.isbn}" th:value="${book.isbn}" /></p>
+		<p>Price: <input type="text" th:field="${book.price}" th:value="${book.price}" /></p>
 		<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
 	</form>
 	
