@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Book {
@@ -20,6 +22,10 @@ public class Book {
 	private String isbn;
 	private double price;
 	
+	@ManyToOne() // yhteys kategoria-luokkaan
+	@JoinColumn(name = "categoryid") // viiteavain
+	private Category category;
+	
 	//konstruktorit
 	public Book() {
 		super();
@@ -29,9 +35,10 @@ public class Book {
 		this.year = 0;
 		this.isbn = null;
 		this.price = 0.00;
+		this.category = null;
 	}
 	
-	public Book(String title, String author, int year, String isbn, double price) {
+	public Book(String title, String author, int year, String isbn, double price, Category category) {
 		super();
 		this.id = null;
 		this.title = title;
@@ -39,9 +46,10 @@ public class Book {
 		this.year = year;
 		this.isbn = isbn;
 		this.price = price;
+		this.category = category;
 	}
 	
-	public Book(Long id, String title, String author, int year, String isbn, double price) {
+	public Book(Long id, String title, String author, int year, String isbn, double price, Category category) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -49,6 +57,7 @@ public class Book {
 		this.year = year;
 		this.isbn = isbn;
 		this.price = price;
+		this.category = category;
 	}
 	
 	//getterit & setterit
@@ -100,9 +109,20 @@ public class Book {
 		this.price = price;
 	}
 	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 	//toString
 	@Override
 	public String toString() {
-		return "id= " + id + ", title= " + title + ", author= " + author + ", year= " + year + ", isbn= " + isbn + ", price= " + price;
+		if (this.category != null)
+			return "id= " + id + ", title= " + title + ", author= " + author + ", year= " + year + ", isbn= " + isbn + ", price= " + price + ", category= " + category;
+		else
+			return "id= " + id + ", title= " + title + ", author= " + author + ", year= " + year + ", isbn= " + isbn + ", price= " + price;
 	}
 }
