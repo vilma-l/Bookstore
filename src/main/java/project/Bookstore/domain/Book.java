@@ -1,5 +1,7 @@
 package project.Bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +25,7 @@ public class Book {
 	private double price;
 	
 	@ManyToOne() // yhteys kategoria-luokkaan
+	@JsonIgnoreProperties("books") // ikuisen loopin esto
 	@JoinColumn(name = "categoryid") // viiteavain
 	private Category category;
 	

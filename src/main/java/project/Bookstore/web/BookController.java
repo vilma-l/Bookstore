@@ -1,14 +1,17 @@
 package project.Bookstore.web;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.Bookstore.domain.Book;
 import project.Bookstore.domain.BookRepository;
@@ -41,6 +44,20 @@ public class BookController {
 		return "booklist"; //booklist.html
 	}
 	
+	//kaikki kirjat JSON-muodossa, REST
+	
+	@RequestMapping(value = "/books", method = RequestMethod.GET)
+	public @ResponseBody List<Book> getBooks() {
+		return (List<Book>) bookRepository.findAll();
+	}
+	
+	//yksi kirja id-arvolla, REST
+	
+	@RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Book> getOneBook(@PathVariable("id") Long bookId) {
+		return bookRepository.findById(bookId);
+	}
+	
 	// tyhjä kirjalomake
 	
 	@RequestMapping(value = "/newbook", method = RequestMethod.GET)
@@ -63,6 +80,7 @@ public class BookController {
 	// kirjan poisto
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteBook(@PathVariable("id") Long id, Model model) {
 		bookRepository.deleteById(id);
 		
