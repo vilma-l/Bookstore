@@ -36,6 +36,7 @@ public class BookstoreApplication {
 			
 			bookRepository.save(new Book("Nalle Puh", "A.A. Milne", 1926, "951-0-07753-4", 15.00, categoryRepository.findByName("Children's books").get(0)));
 			bookRepository.save(new Book("Nalle Puh rakentaa talon", "A.A. Milne", 1928, "951-0-08182-5", 15.00, categoryRepository.findByName("Children's books").get(0)));
+			bookRepository.save(new Book("Kaiken se kestää", "Uma Karma", 2008, "978-952-498-159-0", 23.90, categoryRepository.findByName("Romance").get(0)));
 			
 			//luodaan käyttäjät: admin/admin ja user/user
 			

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.Bookstore.domain.Book;
 import project.Bookstore.domain.BookRepository;
+import project.Bookstore.domain.Category;
 import project.Bookstore.domain.CategoryRepository;
 
 @Controller
@@ -91,8 +92,10 @@ public class BookController {
 	
 	@RequestMapping(value = "/editbook/{id}", method = RequestMethod.GET)
 	public String editBook(@PathVariable("id") Long id, Model model) {
-		Book bookToEdit = bookRepository.findById(id).get();
-		model.addAttribute("book", bookToEdit);
+		//Book bookToEdit = bookRepository.findById(id).get();
+		//model.addAttribute("book", bookToEdit);
+		model.addAttribute("book", bookRepository.findById(id));
+		model.addAttribute("categories", categoryRepository.findAll());
 		
 		return "editbook";
 	}
